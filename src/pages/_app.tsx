@@ -1,13 +1,15 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
+import { Provider } from "urql";
 
-//Fonts
-import { mulish } from "@/Fonts";
+//Urql
+import { useClient } from "@/Urql/client";
 
 export default function App({ Component, pageProps }: AppProps) {
+  const client = useClient(pageProps);
   return (
-    <main className={`${mulish.variable} font-sans`}>
+    <Provider value={client}>
       <Component {...pageProps} />
-    </main>
+    </Provider>
   )
 }

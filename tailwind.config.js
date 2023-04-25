@@ -14,7 +14,7 @@ module.exports = {
         smd: "768px", // Small Medium Devices
         md: "992px", // Medium Devices
         lg: "1200px", // Large Devices
-        xl: "1370px", // Extra Large Devices
+        xl: "1400px", // Extra Large Devices
       },
       colors: {
         main: "#ff9800",
