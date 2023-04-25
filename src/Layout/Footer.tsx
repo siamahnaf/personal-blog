@@ -25,7 +25,7 @@ const Footer = () => {
         <Container className="bg-gray-800 text-white text-center py-16">
             <ul className="flex gap-10 justify-center">
                 {Navs.map((item, i) => (
-                    <li>
+                    <li key={i}>
                         <Link href={item.url} className="opacity-70 hover:opacity-100 transition-all">
                             {item.name}
                         </Link>
@@ -34,7 +34,7 @@ const Footer = () => {
             </ul>
             <ul className="flex gap-5 justify-center my-11">
                 {Socials.map((item, i) => (
-                    <li>
+                    <li key={i}>
                         <Link href={item.url} className="w-12 h-11 mx-auto border border-white border-solid flex items-center transition-all justify-center rounded-lg hover:border-teal-500 hover:bg-teal-500">
                             <Icon icon={item.icon} className="text-xl" />
                         </Link>

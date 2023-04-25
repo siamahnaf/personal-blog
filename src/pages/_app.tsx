@@ -1,15 +1,15 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { Provider } from "urql";
+import { ApolloProvider } from "@apollo/client";
 
 //Urql
-import { useClient } from "@/Urql/client";
+import { useApollo } from "@/Urql/client";
 
 export default function App({ Component, pageProps }: AppProps) {
-  const client = useClient(pageProps);
+  const client = useApollo(pageProps);
   return (
-    <Provider value={client}>
+    <ApolloProvider client={client}>
       <Component {...pageProps} />
-    </Provider>
+    </ApolloProvider>
   )
 }

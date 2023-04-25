@@ -1,9 +1,12 @@
 import Image from "next/image";
+import Link from "next/link"
 
 const Logo = () => {
     return (
         <div>
-            <Image src="/logo.webp" alt="Logo" width={640} height={108} className="w-[60%]" />
+            <Link href="/">
+                <Image src="/logo.png" alt="Logo" width={828} height={145} className="w-[60%]" />
+            </Link>
         </div>
     );
 };

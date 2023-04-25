@@ -1,43 +1,82 @@
-import { cacheExchange, Client, fetchExchange, ssrExchange, errorExchange } from "urql";
 import { useMemo } from "react";
+import {
+    ApolloClient,
+    InMemoryCache,
+    createHttpLink,
+    type NormalizedCacheObject,
+} from "@apollo/client";
+import merge from "deepmerge";
+import isEqual from "lodash-es/isEqual";
+import { setContext } from "@apollo/client/link/context";
 
-let client: Client | null = null;
+const COUNTRIES_API = process.env.NEXT_PUBLIC_API_URL as string
 
-let ssrCache: ReturnType<typeof ssrExchange> | null = null;
+const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
-const isServer = typeof window === "undefined";
-export function initUrqlClient(initialState?: any) {
-    if (!client) {
-        ssrCache = ssrExchange({ initialState, isClient: !isServer });
-        client = new Client({
-            url: process.env.NEXT_PUBLIC_API_URL as string,
-            exchanges: [
-                errorExchange({
-                    onError: (error) => {
-                        error.message = error.message.replace(/^\[.*\]\s*/, "");
-                    }
-                }),
-                cacheExchange,
-                ssrCache,
-                fetchExchange,
-            ],
-            fetchOptions: {
-                headers: {
-                    Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_ACCESS}`
-                }
-            }
-        });
-    } else {
-        ssrCache?.restoreData(initialState);
+let apolloClient: ApolloClient<NormalizedCacheObject> | null;
+
+const apolloHttpLink = createHttpLink({
+    uri: COUNTRIES_API
+})
+
+const apolloAuthContext = setContext(async (_, { headers }) => {
+    return {
+        headers: {
+            ...headers,
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_ACCESS}`
+        },
     }
-    return { client, ssrCache };
+})
+
+function createApolloClient() {
+    return new ApolloClient({
+        ssrMode: typeof window === 'undefined',
+        link: apolloAuthContext.concat(apolloHttpLink),
+        cache: new InMemoryCache(),
+    });
 }
 
+export function initializeApollo(initialState?: any) {
+    const _apolloClient = apolloClient ?? createApolloClient();
 
-export const useClient = (pageProps: any) => {
-    const urqlData = pageProps.urqlState;
-    const { client } = useMemo(() => {
-        return initUrqlClient(urqlData);
-    }, [urqlData]);
+    if (initialState) {
+        const existingCache = _apolloClient.cache.extract();
+
+        const data = merge(initialState, existingCache, {
+            arrayMerge: (destinationArray, sourceArray) => [
+                ...sourceArray,
+                ...destinationArray.filter((d) =>
+                    sourceArray.every((s) => !isEqual(d, s))
+                ),
+            ],
+        });
+        _apolloClient.cache.restore(data);
+    }
+
+    if (typeof window === 'undefined') {
+        return _apolloClient;
+    }
+
+    if (!apolloClient) {
+        apolloClient = _apolloClient;
+    }
+
+    return _apolloClient;
+}
+
+export function addApolloState(
+    client: ApolloClient<NormalizedCacheObject>,
+    pageProps: any
+) {
+    if (pageProps?.props) {
+        pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
+    }
+
+    return pageProps;
+}
+
+export function useApollo(pageProps: any) {
+    const state = pageProps[APOLLO_STATE_PROP_NAME];
+    const client = useMemo(() => initializeApollo(state), [state]);
     return client;
-};
+}

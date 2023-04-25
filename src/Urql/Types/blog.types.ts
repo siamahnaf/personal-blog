@@ -35,10 +35,15 @@ export interface PageInfo {
     pageSize: number;
 }
 
+export interface AggregateCount {
+    count: number
+}
+
 export interface GetBlogData {
     blogsConnection: {
         edges: NodeData[];
         pageInfo: PageInfo;
+        aggregate: AggregateCount;
     }
 
 }

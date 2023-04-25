@@ -1,4 +1,4 @@
-import { gql } from "urql";
+import { gql } from "@apollo/client";
 
 export const GET_BLOGS_POST = gql`
 query MyQuery($first: Int, $orderBy: BlogOrderByInput, $skip: Int) {
@@ -37,6 +37,9 @@ query MyQuery($first: Int, $orderBy: BlogOrderByInput, $skip: Int) {
         hasNextPage
         endCursor
         pageSize
+      }
+      aggregate {
+        count
       }
     }
 }

@@ -8,7 +8,7 @@ import Container from "@/Components/Common/Container";
 import Card from "@/Components/Home/Card";
 
 //Urql
-import { initUrqlClient } from "@/Urql/client";
+import { initializeApollo, addApolloState } from "@/Urql/client";
 import { GET_BLOGS_POST } from "@/Urql/Query/blog.query";
 
 const Home = () => {
@@ -25,18 +25,18 @@ export default Home;
 
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { client, ssrCache } = initUrqlClient();
-  const { data } = await client.query(
-    GET_BLOGS_POST, { first: 8, orderBy: "id_ASC", skip: 0 }, {
-    fetchOptions: {
+  const apolloClient = initializeApollo()
+  await apolloClient.query({
+    query: GET_BLOGS_POST,
+    variables: { first: 8, orderBy: "id_ASC", skip: 0 },
+    context: {
       headers: {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_ACCESS}`
-      },
+      }
     },
-    requestPolicy: "network-only"
-  }).toPromise();
-  console.log(data);
-  return {
-    props: { urqlState: ssrCache?.extractData() }
-  }
+    fetchPolicy: "network-only"
+  });
+  return addApolloState(apolloClient, {
+    props: {},
+  })
 }
