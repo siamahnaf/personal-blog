@@ -52,6 +52,7 @@ const Contact = () => {
         if (data?.createContact.id) {
             reset();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data])
     return (
         <Layout>
