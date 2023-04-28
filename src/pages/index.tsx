@@ -7,9 +7,9 @@ import Container from "@/Components/Common/Container";
 //Components
 import Card from "@/Components/Home/Card";
 
-//Urql
-import { initializeApollo, addApolloState } from "@/Urql/client";
-import { GET_BLOGS_POST } from "@/Urql/Query/blog.query";
+//Graphql
+import { initializeApollo, addApolloState } from "@/Apollo/client";
+import { GET_BLOGS_POST } from "@/Apollo/Query/blog.query";
 
 const Home = () => {
   return (

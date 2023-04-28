@@ -11,7 +11,7 @@ import { setContext } from "@apollo/client/link/context";
 
 const COUNTRIES_API = process.env.NEXT_PUBLIC_API_URL as string
 
-const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
+const APOLLO_STATE_PROP_NAME = "__APOLLO_STATE__";
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | null;
 
@@ -71,7 +71,6 @@ export function addApolloState(
     if (pageProps?.props) {
         pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
     }
-
     return pageProps;
 }
 

@@ -4,17 +4,25 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import moment from "moment";
 
-//Urql
-import { useQuery } from "@apollo/client";
-import { GET_BLOGS_POST } from "@/Urql/Query/blog.query";
-import { GetBlogData } from "@/Urql/Types/blog.types";
+//Apollo
+import { client } from "@/Apollo/mutate"
+import { useQuery, useMutation } from "@apollo/client";
+import { GET_BLOGS_POST, UPDATE_VIEWS } from "@/Apollo/Query/blog.query";
+import { GetBlogData, UpdateViewsData } from "@/Apollo/Types/blog.types";
+
+const randomColor = [
+    "bg-amber-400", "bg-orange-400", "bg-lime-500", "bg-pink-400", "bg-rose-500", "bg-fuchsia-500", "bg-violet-500", "bg-green-500", "bg-yellow-500"
+]
 
 
 const Card = () => {
     //State
-    const [page, setPage] = useState<number>(0)
+    const [page, setPage] = useState<number>(0);
+
     //Apollo
-    const { data, fetchMore } = useQuery<GetBlogData>(GET_BLOGS_POST, { variables: { first: 8, orderBy: "id_ASC", skip: 0 } });
+    const { data, fetchMore } = useQuery<GetBlogData>(GET_BLOGS_POST, { variables: { first: 8, orderBy: "id_ASC", skip: 0 }, fetchPolicy: "cache-and-network" });
+    const [updateView, updateData] = useMutation<UpdateViewsData>(UPDATE_VIEWS, { client });
+
     //OnLoadMore
     const onLoadMore = (page: number) => {
         setPage(page);
@@ -26,6 +34,8 @@ const Card = () => {
         })
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    //On Load Previous
     const onLoadPrevious = () => {
         const skip = (page - 1) * 8
         setPage(page - 1);
@@ -37,6 +47,8 @@ const Card = () => {
         })
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    //On Load Next
     const onLoadNext = () => {
         const skip = (page + 1) * 8
         setPage(page + 1)
@@ -47,12 +59,22 @@ const Card = () => {
             }
         })
     }
+
+    //OnViewHandler
+    const onViewHandler = (slug: string, view: number | null) => {
+        updateView({ variables: { slug: slug, view: (view || 0) + 1 } })
+    }
     return (
         <div>
             <div className="grid grid-cols-2 gap-10">
                 {data?.blogsConnection.edges.map((item, i) => (
                     <div key={i}>
-                        <Image src={item.node.ogImage.url} alt={item.node.title} width={800} height={200} style={{ width: "100%", height: "300px" }} className="rounded-lg" />
+                        <div className="relative">
+                            <Image src={item.node.ogImage.url} alt={item.node.title} width={800} height={200} style={{ width: "100%", height: "300px" }} className="rounded-lg" />
+                            <Link href={`/category/${item.node.category.slug}`} className={`absolute bottom-3 right-3 ${randomColor[i]} text-white py-1.5 px-2.5 rounded text-xs font-medium uppercase`}>
+                                {item.node.category.name}
+                            </Link>
+                        </div>
                         <div className="my-3 grid grid-cols-2">
                             <div className="flex gap-2 items-center">
                                 <Image src={item.node.createdBy.picture} width={25} height={25} alt={item.node.createdBy.name} className="rounded-full" />
@@ -63,7 +85,7 @@ const Card = () => {
                                 <p>{moment(item.node.createdAt).format('DD MMM YYYY')}</p>
                             </div>
                         </div>
-                        <Link href={`/blog/${item.node.slug}`} className="text-2xl font-semibold transition-all hover:text-teal-500 line-clamp-1" title={item.node.title}>{item.node.title}</Link>
+                        <Link href={`/blog/${item.node.slug}`} className="text-2xl font-semibold transition-all hover:text-teal-500 line-clamp-1" title={item.node.title} onClick={() => onViewHandler(item.node.slug, item.node.view)}>{item.node.title}</Link>
                         <p className="opacity-80 text-base mt-3 line-clamp-3">{item.node.excerpt}</p>
                     </div>
                 ))}

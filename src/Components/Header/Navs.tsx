@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 
 //Data
 const Navigation = [
-    { name: "Home", url: "/home" },
+    { name: "Home", url: "/" },
     { name: "About", url: "/about" },
     { name: "Contact", url: "/contact" },
     {
