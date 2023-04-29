@@ -12,7 +12,7 @@ const Card = () => {
     return (
         <div className="grid grid-cols-2 gap-6">
             {data?.categories.map((item, i) => (
-                <Link href={`/category/${item.slug}`} className="flex gap-3 my-1 bg-white p-2 rounded transition-all hover:shadow-lg">
+                <Link href={`/category/${item.slug}`} className="flex gap-3 my-1 bg-white p-2 rounded transition-all hover:shadow-lg" key={i}>
                     <div className="basis-[20%]">
                         <Image src={item.image.url} alt={item.name} width={80} height={80} className="w-full" placeholder="blur" blurDataURL={item.image.url} />
                     </div>
