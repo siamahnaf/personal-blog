@@ -17,7 +17,7 @@ const Images = () => {
     return (
         <div className="grid grid-cols-12 gap-2 items-center mt-8">
             <div className="col-span-9">
-                <Image src={data?.blog.ogImage.url as string} alt={data?.blog.title as string} width={800} height={200} className="rounded-md" />
+                <Image src={data?.blog.ogImage.url as string} alt={data?.blog.title as string} width={800} height={200} className="rounded-md" placeholder="blur" blurDataURL={data?.blog.ogImage.url as string} />
             </div>
             <div className="col-span-3">
                 <p><Icon icon="bxs:quote-alt-left" className="inline text-3xl mr-1"></Icon>{data?.blog.excerpt}<Icon icon="bxs:quote-alt-right" className="inline text-3xl ml-1 mb-1" /></p>

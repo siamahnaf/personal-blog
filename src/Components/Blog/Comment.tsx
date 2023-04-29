@@ -58,7 +58,7 @@ const Comment = () => {
                     {item.reply &&
                         <div className="flex gap-4 items-center ml-24 mt-8">
                             <div>
-                                <Image src={item.updatedBy.picture} alt={item.updatedBy.name} width={65} height={65} className="rounded-full" />
+                                <Image src={item.updatedBy.picture} alt={item.updatedBy.name} width={65} height={65} className="rounded-full" placeholder="blur" blurDataURL={item.updatedBy.picture} />
                             </div>
                             <div>
                                 <p className="text-base opacity-70 mb-1.5">{item.reply}</p>

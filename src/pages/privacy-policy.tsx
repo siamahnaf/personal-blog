@@ -2,9 +2,13 @@
 import Layout from "@/Layout";
 import Container from "@/Components/Common/Container";
 
+//Seo
+import SiteSeo from "@/Utils/SiteSeo";
+
 const PrivacyPolicy = () => {
     return (
         <Layout>
+            <SiteSeo title="Privacy Policy" />
             <Container className="pt-40 pb-16">
                 <h2 className="text-center text-4xl font-bold mb-8">Privacy</h2>
                 <div>

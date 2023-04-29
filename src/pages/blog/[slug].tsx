@@ -16,6 +16,9 @@ import Shares from "@/Components/Blog/Shares";
 import AddComment from "@/Components/Blog/AddComment";
 import Comment from "@/Components/Blog/Comment";
 
+//Seo
+import BlogSeo from "@/Utils/BlogSeo";
+
 //404
 import NotFound from "@/Components/Common/NotFound";
 
@@ -33,6 +36,7 @@ const SingleBlog = () => {
 
     return (
         <Layout>
+            <BlogSeo />
             <Container className="pt-40 pb-16">
                 {data?.blog ? (
                     <Fragment>

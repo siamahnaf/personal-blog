@@ -1,34 +1,39 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { Icon } from "@iconify/react";
 import moment from "moment";
 
 //Apollo
 import { client } from "@/Apollo/mutate"
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_BLOGS_POST, UPDATE_VIEWS } from "@/Apollo/Query/blog.query";
-import { GetBlogData, UpdateViewsData } from "@/Apollo/Types/blog.types";
+import { UPDATE_VIEWS } from "@/Apollo/Query/blog.query";
+import { GET_CATEGORY_BLOG } from "@/Apollo/Query/category.query";
+import { UpdateViewsData, GetBlogData } from "@/Apollo/Types/blog.types";
 
 const randomColor = [
     "bg-amber-400", "bg-orange-400", "bg-lime-500", "bg-pink-400", "bg-rose-500", "bg-fuchsia-500", "bg-violet-500", "bg-green-500", "bg-yellow-500"
 ]
 
 
-const Card = () => {
+const Blog = () => {
     //State
     const [page, setPage] = useState<number>(0);
 
+    //Initialize Hook
+    const router = useRouter();
+
     //Apollo
-    const { data, fetchMore } = useQuery<GetBlogData>(GET_BLOGS_POST, { variables: { first: 8, orderBy: "id_DESC", skip: 0, search: "" }, fetchPolicy: "cache-and-network" });
-    const [updateView, updateData] = useMutation<UpdateViewsData>(UPDATE_VIEWS, { client });
+    const { data, fetchMore } = useQuery<GetBlogData>(GET_CATEGORY_BLOG, { variables: { first: 8, orderBy: "id_DESC", skip: 0, slug: router.query.slug }, fetchPolicy: "cache-and-network" });
+    const [updateView] = useMutation<UpdateViewsData>(UPDATE_VIEWS, { client });
 
     //OnLoadMore
     const onLoadMore = (page: number) => {
         setPage(page);
         const skip = (page * 8)
         fetchMore({
-            variables: { first: 8, orderBy: "id_DESC", skip: skip, search: "" }, updateQuery(_, { fetchMoreResult }) {
+            variables: { first: 8, orderBy: "id_DESC", skip: skip, slug: router.query.slug }, updateQuery(_, { fetchMoreResult }) {
                 return fetchMoreResult
             }
         })
@@ -41,7 +46,7 @@ const Card = () => {
         setPage(page - 1);
         window.scrollTo({ top: 0, behavior: 'smooth' });
         fetchMore({
-            variables: { first: 8, orderBy: "id_DESC", skip: skip, search: "" }, updateQuery(_, { fetchMoreResult }) {
+            variables: { first: 8, orderBy: "id_DESC", skip: skip, slug: router.query.slug }, updateQuery(_, { fetchMoreResult }) {
                 return fetchMoreResult
             }
         })
@@ -54,7 +59,7 @@ const Card = () => {
         setPage(page + 1)
         window.scrollTo({ top: 0, behavior: 'smooth' });
         fetchMore({
-            variables: { first: 8, orderBy: "id_DESC", skip: skip, search: "" }, updateQuery(_, { fetchMoreResult }) {
+            variables: { first: 8, orderBy: "id_DESC", skip: skip, slug: router.query.slug }, updateQuery(_, { fetchMoreResult }) {
                 return fetchMoreResult
             }
         })
@@ -90,7 +95,7 @@ const Card = () => {
                     </div>
                 ))}
             </div>
-            {data && data.blogsConnection.aggregate.count > 8 &&
+            {data && data?.blogsConnection.aggregate.count > 8 &&
                 <div className="text-center mt-12">
                     <ul className="flex gap-3 justify-center items-center">
                         <li>
@@ -115,8 +120,14 @@ const Card = () => {
 
                 </div>
             }
+            {data?.blogsConnection.edges.length === 0 &&
+                <div className="text-center">
+                    <h2 className="mb-10 font-bold text-4xl">Search results for <span className="text-teal-500">{router.query.slug}</span></h2>
+                    <p className="opacity-70 text-2xl">No Search Found!</p>
+                </div>
+            }
         </div>
     );
 };
 
-export default Card;
+export default Blog;

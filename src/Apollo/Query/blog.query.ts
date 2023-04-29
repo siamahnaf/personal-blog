@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_BLOGS_POST = gql`
-query MyQuery($first: Int, $orderBy: BlogOrderByInput, $skip: Int) {
-    blogsConnection(first: $first, orderBy: $orderBy, skip: $skip) {
+query MyQuery($first: Int, $orderBy: BlogOrderByInput, $skip: Int,  $search: String) {
+    blogsConnection(first: $first, orderBy: $orderBy, skip: $skip, where: {_search: $search}) {
       edges {
         node {
           category {

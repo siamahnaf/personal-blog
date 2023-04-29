@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useForm, SubmitHandler } from "react-hook-form";
 
@@ -50,6 +50,14 @@ const AddComment = () => {
     const onSubmit: SubmitHandler<Inputs> = (value) => {
         addComment({ variables: { ...value, slug: router.query.slug } })
     }
+
+    //Lifecycle Hook
+    useEffect(() => {
+        if (data?.createComment.name) {
+            reset();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data])
     return (
         <div className="mt-10">
             {(error || data) &&

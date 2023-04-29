@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { Icon } from "@iconify/react";
 import moment from "moment";
 
@@ -15,12 +16,18 @@ const randomColor = [
 ]
 
 
-const Card = () => {
+const Blog = () => {
     //State
     const [page, setPage] = useState<number>(0);
 
+    //Initialize Hook
+    const router = useRouter();
+
+    //Search Text
+    const search = router.query.key?.toString().replace("-", " ")
+
     //Apollo
-    const { data, fetchMore } = useQuery<GetBlogData>(GET_BLOGS_POST, { variables: { first: 8, orderBy: "id_DESC", skip: 0, search: "" }, fetchPolicy: "cache-and-network" });
+    const { data, fetchMore } = useQuery<GetBlogData>(GET_BLOGS_POST, { variables: { first: 8, orderBy: "id_DESC", skip: 0, search }, fetchPolicy: "cache-and-network" });
     const [updateView, updateData] = useMutation<UpdateViewsData>(UPDATE_VIEWS, { client });
 
     //OnLoadMore
@@ -28,7 +35,7 @@ const Card = () => {
         setPage(page);
         const skip = (page * 8)
         fetchMore({
-            variables: { first: 8, orderBy: "id_DESC", skip: skip, search: "" }, updateQuery(_, { fetchMoreResult }) {
+            variables: { first: 8, orderBy: "id_DESC", skip: skip, search }, updateQuery(_, { fetchMoreResult }) {
                 return fetchMoreResult
             }
         })
@@ -41,7 +48,7 @@ const Card = () => {
         setPage(page - 1);
         window.scrollTo({ top: 0, behavior: 'smooth' });
         fetchMore({
-            variables: { first: 8, orderBy: "id_DESC", skip: skip, search: "" }, updateQuery(_, { fetchMoreResult }) {
+            variables: { first: 8, orderBy: "id_DESC", skip: skip, search }, updateQuery(_, { fetchMoreResult }) {
                 return fetchMoreResult
             }
         })
@@ -54,7 +61,7 @@ const Card = () => {
         setPage(page + 1)
         window.scrollTo({ top: 0, behavior: 'smooth' });
         fetchMore({
-            variables: { first: 8, orderBy: "id_DESC", skip: skip, search: "" }, updateQuery(_, { fetchMoreResult }) {
+            variables: { first: 8, orderBy: "id_DESC", skip: skip, search }, updateQuery(_, { fetchMoreResult }) {
                 return fetchMoreResult
             }
         })
@@ -115,8 +122,14 @@ const Card = () => {
 
                 </div>
             }
+            {data && data.blogsConnection.edges.length === 0 &&
+                <div className="text-center">
+                    <h2 className="mb-10 font-bold text-4xl">Search results for <span className="text-teal-500">{router.query.key}</span></h2>
+                    <p className="opacity-70 text-2xl">No Search Found!</p>
+                </div>
+            }
         </div>
     );
 };
 
-export default Card;
+export default Blog;

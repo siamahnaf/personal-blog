@@ -6,17 +6,17 @@ import Container from "@/Components/Common/Container";
 
 //Socials
 const Socials = [
-    { icon: "bxl:facebook", url: "/" },
-    { icon: "bxl:twitter", url: "/" },
-    { icon: "bxl:linkedin", url: "/" },
-    { icon: "bxl:github", url: "/" },
-    { icon: "fa6-solid:s", url: "/" },
+    { icon: "bxl:facebook", url: "https://www.facebook.com/siamahnaf198/" },
+    { icon: "bxl:twitter", url: "https://twitter.com/siamahnaf198" },
+    { icon: "bxl:linkedin", url: "https://www.linkedin.com/in/siamahnaf198/" },
+    { icon: "bxl:github", url: "https://github.com/siamahnaf" },
+    { icon: "fa6-solid:s", url: "https://www.siamahnaf.com/" },
 ]
 
 const Navs = [
     { name: "About", url: "/about" },
     { name: "Contact", url: "/contact" },
-    { name: "Category", url: "/Category" },
+    { name: "Categories", url: "/categories" },
     { name: "Privacy Policy", url: "/privacy-policy" },
 ]
 
@@ -41,7 +41,7 @@ const Footer = () => {
                     </li>
                 ))}
             </ul>
-            <p className="text-base opacity-70">Copyright © {new Date().getFullYear()} a blog site by <Link href="https://www.siamahnaf.com/">Siam Ahnaf</Link></p>
+            <p className="text-base opacity-70">Copyright © {new Date().getFullYear()} a blog site by <Link href="https://www.siamahnaf.com/" className="hover:text-teal-500">Siam Ahnaf</Link></p>
         </Container>
     );
 };

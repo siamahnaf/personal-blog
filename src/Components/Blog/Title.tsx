@@ -20,7 +20,7 @@ const Title = () => {
         <div>
             <div className="flex gap-10 items-center">
                 <Link href={`/category/${data?.blog.category.slug}`} className="flex gap-2 items-center bg-teal-500 py-1.5 px-2 rounded text-white">
-                    <Image src={data?.blog?.category?.image?.url as string} alt={data?.blog.category.name as string} width={30} height={30} className="rounded-full" />
+                    <Image src={data?.blog?.category?.image?.url as string} alt={data?.blog.category.name as string} width={30} height={30} className="rounded-full" placeholder="blur" blurDataURL={data?.blog?.category?.image?.url as string} />
                     <p className="font-medium text-base">{data?.blog.category.name}</p>
                 </Link>
                 <div>
@@ -32,7 +32,7 @@ const Title = () => {
             <h1 className="text-4xl font-bold my-5">{data?.blog?.title}</h1>
             <div className="my-4 grid grid-cols-2 items-center">
                 <div className="flex gap-2 items-center">
-                    <Image src={data?.blog.createdBy.picture as string} width={25} height={25} alt={data?.blog.createdBy.name as string} className="rounded-full" />
+                    <Image src={data?.blog.createdBy.picture as string} width={25} height={25} alt={data?.blog.createdBy.name as string} className="rounded-full" placeholder="blur" blurDataURL={data?.blog.createdBy.picture as string} />
                     <p>{data?.blog.createdBy.name}</p>
                 </div>
                 <div className="flex gap-5 items-center opacity-60">

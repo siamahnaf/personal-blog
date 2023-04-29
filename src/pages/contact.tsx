@@ -8,6 +8,9 @@ import Container from "@/Components/Common/Container";
 //Notification
 import { Notification } from "@/Components/Common/Notification";
 
+//Seo
+import SiteSeo from "@/Utils/SiteSeo";
+
 //Apollo
 import { client } from "@/Apollo/mutate";
 import { useMutation } from "@apollo/client";
@@ -56,6 +59,7 @@ const Contact = () => {
     }, [data])
     return (
         <Layout>
+            <SiteSeo title="Contact" />
             <Container className="pt-40 pb-16">
                 {(error || data) &&
                     <Notification

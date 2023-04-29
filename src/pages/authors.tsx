@@ -6,6 +6,9 @@ import { Icon } from "@iconify/react";
 import Layout from "@/Layout";
 import Container from "@/Components/Common/Container";
 
+//Seo
+import SiteSeo from "@/Utils/SiteSeo";
+
 //Socials
 const Socials = [
     { icon: "bxl:twitter", url: "/" },
@@ -17,6 +20,7 @@ const Socials = [
 const Authors = () => {
     return (
         <Layout>
+            <SiteSeo title="Author" />
             <Container className="pt-40 pb-16 text-center">
                 <div className="bg-teal-500 w-[90%] mx-auto rounded pt-24">
                     <Image src="/about.png" alt="Siam Ahnaf" width={1104} height={1505} className="w-5/12 mx-auto" />

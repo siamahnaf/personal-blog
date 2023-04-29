@@ -45,7 +45,7 @@ const Shares = () => {
         <div className="grid grid-cols-2 gap-2 items-center">
             <div>
                 <ul className="flex gap-2 mt-4">
-                    {data?.blog.kewwords.split(", ").map((item, i) => (
+                    {data?.blog.kewwords?.split(", ").slice(0, 5).map((item, i) => (
                         <li className="border border-teal-500 border-solid px-2 py-px border-opacity-30 rounded bg-teal-500 bg-opacity-30 cursor-text" key={i}>{item}</li>
                     ))}
                 </ul>

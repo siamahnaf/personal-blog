@@ -6,17 +6,21 @@ import { Icon } from "@iconify/react";
 import Layout from "@/Layout";
 import Container from "@/Components/Common/Container";
 
+//Seo
+import SiteSeo from "@/Utils/SiteSeo";
+
 //Socials
 const Socials = [
-    { icon: "bxl:twitter", url: "/" },
-    { icon: "bxl:linkedin", url: "/" },
-    { icon: "bxl:github", url: "/" },
-    { icon: "fa6-solid:s", url: "/" }
+    { icon: "bxl:twitter", url: "https://twitter.com/siamahnaf198" },
+    { icon: "bxl:linkedin", url: "https://www.linkedin.com/in/siamahnaf198/" },
+    { icon: "bxl:github", url: "https://github.com/siamahnaf" },
+    { icon: "fa6-solid:s", url: "https://www.siamahnaf.com/" },
 ]
 
 const About = () => {
     return (
         <Layout>
+            <SiteSeo title="About" />
             <Container className="pt-40 pb-16 text-center">
                 <div className="bg-teal-500 w-[90%] mx-auto rounded pt-24">
                     <Image src="/about.png" alt="Siam Ahnaf" width={1104} height={1505} className="w-5/12 mx-auto" />

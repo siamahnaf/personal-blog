@@ -5,32 +5,33 @@ import Layout from "@/Layout";
 import Container from "@/Components/Common/Container";
 
 //Components
-import Card from "@/Components/Categories/Card";
+import Blog from "@/Components/Categories/Blog";
 
 //Seo
 import SiteSeo from "@/Utils/SiteSeo";
 
-//Graphql
+//Apollo
 import { initializeApollo, addApolloState } from "@/Apollo/client";
-import { GET_CATEGORIES } from "@/Apollo/Query/category.query";
+import { GET_CATEGORY_BLOG } from "@/Apollo/Query/category.query";
 
-const categories = () => {
+const Category = () => {
     return (
         <Layout>
             <SiteSeo title="Categories" />
             <Container className="pt-40 pb-16">
-                <Card />
+                <Blog />
             </Container>
         </Layout>
     );
 };
 
-export default categories;
+export default Category;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const apolloClient = initializeApollo()
     await apolloClient.query({
-        query: GET_CATEGORIES,
+        query: GET_CATEGORY_BLOG,
+        variables: { first: 8, skip: 0, orderBy: "id_DESC", slug: ctx.query.slug },
         context: {
             headers: {
                 Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_ACCESS}`
