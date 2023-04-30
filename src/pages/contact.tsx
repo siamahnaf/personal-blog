@@ -60,7 +60,7 @@ const Contact = () => {
     return (
         <Layout>
             <SiteSeo title="Contact" />
-            <Container className="pt-40 pb-16">
+            <Container className="pt-40 smd:pt-40 xxs:pt-32 pb-16">
                 {(error || data) &&
                     <Notification
                         open={notification}
@@ -71,7 +71,7 @@ const Contact = () => {
                     </Notification>
                 }
                 <h2 className="text-center text-4xl font-bold mb-8">Contact</h2>
-                <form className="w-1/2 mx-auto" onSubmit={handleSubmit(onSubmit)}>
+                <form className="w-1/2 lg:w-1/2 md:w-[60%] smd:w-[70%] lsm:w-[80%] msm:w-[90%] xxs:w-[100%] mx-auto" onSubmit={handleSubmit(onSubmit)}>
                     <div className="my-5">
                         <label htmlFor="name" className="block text-lg font-medium mb-1">
                             Name

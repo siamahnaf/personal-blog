@@ -42,16 +42,16 @@ const Shares = () => {
         updateDislikes({ variables: { slug: router.query.slug, dislike: (data?.blog.dislike || 0) + 1 } })
     }
     return (
-        <div className="grid grid-cols-2 gap-2 items-center">
-            <div>
-                <ul className="flex gap-2 mt-4">
+        <div className="flex flex-wrap gap-2 items-center">
+            <div className="smd:flex-1 xxs:max-lsm:basis-[100%]">
+                <ul className="flex flex-wrap gap-2 mt-4">
                     {data?.blog.kewwords?.split(", ").slice(0, 5).map((item, i) => (
                         <li className="border border-teal-500 border-solid px-2 py-px border-opacity-30 rounded bg-teal-500 bg-opacity-30 cursor-text" key={i}>{item}</li>
                     ))}
                 </ul>
             </div>
-            <div>
-                <ul className="flex gap-6 items-center mt-4 justify-end">
+            <div className="xxs:max-lsm:basis-[100%]">
+                <ul className="flex gap-6 items-center mt-4 justify-end smd:justify-end xxs:justify-start">
                     <li>
                         <button className="p-2 rounded-md hover:bg-gray-100" onClick={likes} disabled={clicked}>
                             <Icon className="inline text-xl" icon="ant-design:like-outlined" />

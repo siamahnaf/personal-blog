@@ -21,11 +21,11 @@ const About = () => {
     return (
         <Layout>
             <SiteSeo title="About" />
-            <Container className="pt-40 pb-16 text-center">
-                <div className="bg-teal-500 w-[90%] mx-auto rounded pt-24">
-                    <Image src="/about.png" alt="Siam Ahnaf" width={1104} height={1505} className="w-5/12 mx-auto" />
+            <Container className="pt-40 smd:pt-40 xxs:pt-32 pb-16 text-center">
+                <div className="bg-teal-500 w-[90%] mx-auto rounded pt-24 smd:pt-24 lsm:pt-16 msm:pt-14 sm:pt-12 xxs:pt-10">
+                    <Image src="/about.png" alt="Siam Ahnaf" width={1104} height={1505} className="w-5/12 smd:w-5/12 lsm:w-[50%] msm:w-[60%] sm:w-[70%] xs:w-[80%] xxs:w-[85%] mx-auto" />
                 </div>
-                <h3 className="text-4xl font-bold my-4">I’m Siam Ahnaf, A content writer based in LDN, currently a Full Stack Web Developer</h3>
+                <h3 className="text-4xl smd:text-4xl msm:text-3xl xxs:text-2xl text-center font-bold my-4">I’m Siam Ahnaf, A content writer based in LDN, currently a Full Stack Web Developer</h3>
                 <ul className="flex gap-2 justify-center my-6">
                     {Socials.map((item, i) => (
                         <li key={i}>
@@ -35,10 +35,10 @@ const About = () => {
                         </li>
                     ))}
                 </ul>
-                <p className="text-lg opacity-90 w-5/6 mx-auto mb-6">
+                <p className="text-lg opacity-90 w-5/6 sm:w-5/6 xxs:w-full mx-auto mb-6">
                     A content writer with over 12 years experience working across brand identity, publishing and digital products. Maecenas sit amet purus eget ipsum elementum venenatis. Aenean maximus urna magna elementum venenatis, quis rutrum mi semper non purus eget.
                 </p>
-                <p className="text-lg opacity-90 w-5/6 mx-auto">Purus eget ipsum elementum venenatis. Aenean maximus urna magna elementum venenatis, quis rutrum mi semper non purus eget ipsum elementum venenatis.</p>
+                <p className="text-lg opacity-90 w-5/6 sm:w-5/6 xxs:w-full mx-auto">Purus eget ipsum elementum venenatis. Aenean maximus urna magna elementum venenatis, quis rutrum mi semper non purus eget ipsum elementum venenatis.</p>
             </Container>
         </Layout>
     );

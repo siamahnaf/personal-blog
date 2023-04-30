@@ -23,7 +23,7 @@ const Navs = [
 const Footer = () => {
     return (
         <Container className="bg-gray-800 text-white text-center py-16">
-            <ul className="flex gap-10 justify-center">
+            <ul className="flex gap-10 flex-wrap justify-center">
                 {Navs.map((item, i) => (
                     <li key={i}>
                         <Link href={item.url} className="opacity-70 hover:opacity-100 transition-all">
@@ -32,7 +32,7 @@ const Footer = () => {
                     </li>
                 ))}
             </ul>
-            <ul className="flex gap-5 justify-center my-11">
+            <ul className="flex gap-5 justify-center my-11 flex-wrap">
                 {Socials.map((item, i) => (
                     <li key={i}>
                         <Link href={item.url} className="w-12 h-11 mx-auto border border-white border-solid flex items-center transition-all justify-center rounded-lg hover:border-teal-500 hover:bg-teal-500">

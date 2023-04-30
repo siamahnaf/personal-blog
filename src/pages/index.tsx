@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <Layout>
       <SiteSeo />
-      <Container className="pt-40 pb-16">
+      <Container className="pt-40 smd:pt-40 xxs:pt-32 pb-16">
         <Card />
       </Container>
     </Layout>

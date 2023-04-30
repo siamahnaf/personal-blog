@@ -18,7 +18,7 @@ const Search = () => {
     return (
         <Layout>
             <SiteSeo title="Search" />
-            <Container className="pt-40 pb-16">
+            <Container className="pt-40 smd:pt-40 xxs:pt-32 pb-16">
                 <Blog />
             </Container>
         </Layout>

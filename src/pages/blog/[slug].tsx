@@ -37,7 +37,7 @@ const SingleBlog = () => {
     return (
         <Layout>
             <BlogSeo />
-            <Container className="pt-40 pb-16">
+            <Container className="pt-40 smd:pt-40 xxs:pt-32 pb-16">
                 {data?.blog ? (
                     <Fragment>
                         <Title />

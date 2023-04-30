@@ -71,8 +71,8 @@ const AddComment = () => {
             }
             <h3 className="text-2xl font-bold mb-5">Comments</h3>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="grid grid-cols-2 gap-3">
-                    <div className="col-span-2">
+                <div className="grid grid-cols-2 sm:grid-cols-2 xxs:grid-cols-1 gap-3">
+                    <div className="col-span-2 sm:col-span-2 xxs:col-span-1">
                         <textarea className={`border border-solid ${errors.description ? "border-red-600" : "border-teal-500"} w-full focus:outline-none py-1 px-3 rounded placeholder:text-black placeholder:text-opacity-70 placeholder:font-medium`} placeholder="Description" rows={6} {...register("description", { required: true, maxLength: 300 })} />
                     </div>
                     <div>

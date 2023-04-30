@@ -56,7 +56,7 @@ const Comment = () => {
                         </div>
                     </div>
                     {item.reply &&
-                        <div className="flex gap-4 items-center ml-24 mt-8">
+                        <div className="flex gap-4 items-center ml-24 smd:ml-24 lsm:ml-16 xxs:ml-8 mt-8">
                             <div>
                                 <Image src={item.updatedBy.picture} alt={item.updatedBy.name} width={65} height={65} className="rounded-full" placeholder="blur" blurDataURL={item.updatedBy.picture} />
                             </div>

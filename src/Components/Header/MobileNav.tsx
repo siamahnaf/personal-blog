@@ -15,12 +15,17 @@ const Navigation = [
     }
 ]
 
-const Navs = () => {
+//Interface
+interface Props {
+    open: boolean;
+}
+
+const MobileNav = ({ open }: Props) => {
     return (
-        <div className="col-span-2 smd:block xxs:hidden">
-            <ul className="flex gap-8 justify-end">
+        <div className={`col-span-2 smd:hidden xxs:block absolute left-0 top-full bg-white w-full p-5 rounded-b-md transition-all ${open ? "visible opacity-100 translate-y-0" : "invisible opacity-0 -translate-y-3"}`}>
+            <ul className="">
                 {Navigation.map((item, i) => (
-                    <li key={i}>
+                    <li key={i} className="my-1">
                         {item.url &&
                             <Link href={item.url} className="text-lg font-medium hover:text-teal-500 transition-all">
                                 {item.name}
@@ -48,4 +53,4 @@ const Navs = () => {
     );
 };
 
-export default Navs;
+export default MobileNav;

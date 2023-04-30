@@ -54,7 +54,7 @@ const Header = () => {
         <header className={`fixed top-0 left-0 w-full bg-white z-50 ${isScrolled ? "shadow-[0_10px_30px_rgba(22,28,45,.1)]" : ""}`}>
             <Container>
                 <HeaderContext.Provider value={{ search, setSearch }}>
-                    <div className={`grid grid-cols-4 gap-2 items-center relative transition-all ${isScrolled ? "py-6" : "py-14"}`}>
+                    <div className={`grid grid-cols-4 smd:grid-cols-4 xxs:grid-cols-2 gap-2 items-center relative transition-all ${isScrolled ? "py-6 smd:py-6 xxs:py-3" : "py-14 smd:py-14 xxs:py-8"}`}>
                         <Logo />
                         <Navs />
                         <Search />
