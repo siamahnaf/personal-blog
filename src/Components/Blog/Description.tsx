@@ -14,7 +14,7 @@ const Description = () => {
 
     return (
         <div>
-            <div className="mt-5 text-lg" dangerouslySetInnerHTML={{ __html: data?.blog.post.html.replace(/<pre>/g, '<pre class="bg-gray-800 text-white py-1 px-2 rounded text-base my-6 cursor-text overflow-auto">') as string }} />
+            <div className="mt-5 text-lg" dangerouslySetInnerHTML={{ __html: data?.blog.post.html.replace(/<pre>/g, '<pre class="bg-gray-800 text-white py-1 px-2 rounded text-base my-6 cursor-text overflow-auto">').replace(/<h4>/g, '<h4 class="text-3xl font-bold my-4">').replace(/<code>/g, '<code class="bg-gray-800 text-white text-sm px-2 py-1 rounded">') as string }} />
         </div>
     );
 };
