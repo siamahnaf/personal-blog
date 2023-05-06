@@ -75,7 +75,7 @@ const Blog = () => {
                 {data?.blogsConnection.edges.map((item, i) => (
                     <div key={i}>
                         <div className="relative">
-                            <Image src={item.node.ogImage.url} alt={item.node.title} width={800} height={200} className="rounded-lg w-full h-[300px] lg:h-[300px] md:h-[250px] smd:h-[200px] lsm:[300px] msm:h-[260px] sm:h-[230px] xs:h-[190px] xxs:h-[150px]" placeholder="blur" blurDataURL={item.node.ogImage.url} />
+                            <Image src={item.node.ogImage.url} alt={item.node.title} width={800} height={200} className="aspect-[1.9] rounded-lg" placeholder="blur" blurDataURL={item.node.ogImage.url} />
                             <Link href={`/category/${item.node.category.slug}`} className={`absolute bottom-3 right-3 ${randomColor[i]} text-white py-1.5 px-2.5 rounded text-xs font-medium uppercase`}>
                                 {item.node.category.name}
                             </Link>

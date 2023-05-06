@@ -22,7 +22,7 @@ module.exports = {
       },
       fontFamily: {
         "sans": ['var(--font-mulish)']
-      },
+      }
     }
   },
   plugins: []

@@ -70,14 +70,14 @@ const Card = () => {
                 {data?.blogsConnection.edges.map((item, i) => (
                     <div key={i}>
                         <div className="relative">
-                            <Image src={item.node.ogImage.url} alt={item.node.title} width={800} height={200} className="rounded-lg w-full h-[300px] lg:h-[300px] md:h-[250px] smd:h-[200px] lsm:[300px] msm:h-[260px] sm:h-[230px] xs:h-[190px] xxs:h-[150px]" placeholder="blur" blurDataURL={item.node.ogImage.url} />
+                            <Image src={item.node.ogImage.url} alt={item.node.title} width={800} height={200} className="aspect-[1.9] rounded-lg" placeholder="blur" blurDataURL={item.node.ogImage.url} />
                             <Link href={`/category/${item.node.category.slug}`} className={`absolute bottom-3 right-3 ${randomColor[i]} text-white py-1.5 px-2.5 rounded text-xs font-medium uppercase`}>
                                 {item.node.category.name}
                             </Link>
                         </div>
                         <div className="my-3 grid grid-cols-2">
                             <div className="flex gap-2 items-center">
-                                <Image src={item.node.createdBy.picture} width={25} height={25} alt={item.node.createdBy.name} className="rounded-full" placeholder="blur" blurDataURL={item.node.createdBy.picture} />
+                                <Image src={item.node.createdBy.picture} width={25} height={25} alt={item.node.createdBy.name} className="rounded-full" />
                                 <p>{item.node.createdBy.name}</p>
                             </div>
                             <div className="flex gap-2 justify-end items-center">
